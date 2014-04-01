@@ -1,0 +1,17 @@
+{
+  "name": "advance-history",
+  "version": "1.0.0",
+  "ignore": [
+    "*.md",
+    "package.json",
+    "bower.json",
+    "manifest.json"
+  ],
+  "dependencies": {
+    "jquery": "1.10.2",
+    "angular": "",
+    "bootstrap": "",
+    "angular-ui-bootstrap": "",
+    "angular-bootstrap": "~0.10.0"
+  }
+}

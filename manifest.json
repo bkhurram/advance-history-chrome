@@ -1,0 +1,40 @@
+{
+	"manifest_version": 2,
+	"name": "advance-history",
+	"description": "search with advance history",
+	"version": "1.0",
+	"permissions": [
+		"activeTab",
+		"tabs", 
+		"history",
+		"storage",
+		"background",
+		"chrome://favicon/",
+		"http://*/*", 
+		"https://*/*"
+	],
+	
+	"icons":{	"16": "icon16.png",
+				"48": "icon48.png",
+				"128": "icon128.png" 
+			},
+	
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "popup.html"
+	},
+	
+	"background": {
+		"scripts": [ "components/jquery/jquery.min.js", "components/angular/angular.min.js", "js/background.js" ]
+	},
+	
+	"options_page": "options.html",
+	
+	"content_scripts": [],
+	
+	"web_accessible_resources": [
+		"components/jquery/jquery.min.map", "components/angular/angular.min.js.map"
+	],
+	
+	"update_url" : "http://localhost/chrome/update.xml"
+}

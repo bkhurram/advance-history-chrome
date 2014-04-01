@@ -1,0 +1,13 @@
+{
+	"name": "Advance history",
+	"version": "1.0.0",
+	"description": "advance operation history",
+	"main": "js/popup.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Khurram Bashir",
+	"license": "GPL",
+	"dependencies": {
+	}
+}

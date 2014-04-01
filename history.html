@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html ng-app="history" ng-controller="Search">
+<head>
+	<title>Advance history</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/history.css">
+	
+</head>
+<body>
+	
+	<div class="fullContainer">
+		
+		<div class="container">
+			
+			<!-- spalla -->
+			<div class="col-xs-3">
+				<div class="" ng-model="dtFrom">
+					<h3>From:</h3>
+					<datepicker show-weeks="false" max="dtTo"></datepicker>
+				</div>
+				<div class="" ng-model="dtFrom">
+					<timepicker hour-step="1" minute-step="10" show-meridian="false"></timepicker>
+				</div>
+				<div class="" ng-model="dtTo">
+					<h3>To:</h3>
+					<datepicker show-weeks="false" min="dtFrom" max="today"></datepicker>
+				</div>
+				<div class="" ng-model="dtTo">
+					<timepicker hour-step="1" minute-step="10" show-meridian="false"></timepicker>
+				</div>
+				
+  
+			</div>
+			
+			<div class="col-xs-9">
+				<h1>History:</h1>
+				<form role="form" class="row">
+					<div class="col-xs-10">
+						<input class="form-control" type="text" name="search" placeholder="keyword" ng-model="keyword">
+					</div>
+					<div class="col-xs-2">
+						<button class="btn btn-primary btn-block" ng-click="searchkeyword()">Search</button>
+					</div>
+				</form>
+				
+				<div class="clearfix list-history">
+					<table class="table table-striped ">
+						<tr ng-repeat="list in lists" data-id="list.id">
+							<td>{{list.lastVisitTime | date:'yyyy-MM-dd HH:mm:ss Z' }}</td>
+							<td><img src="chrome://favicon/https://www.google.it/"></td>
+							<td><a href="{{list.url}}">{{list.title}}</a> {{list.url}}</td>
+							<td><div class="remove" ng-click="remove(list.url)">X</div></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+	
+	<!-- LOAD SCRIPT -->
+	<script type="text/javascript" src="components/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script type="text/javascript" src="js/history.js"></script>
+</body>
+</html>

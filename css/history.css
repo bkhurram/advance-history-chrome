@@ -1,0 +1,8 @@
+.list-history{
+height: 450px;
+overflow: auto;
+}
+
+.remove{
+	cursor: pointer;
+}
