@@ -41,12 +41,20 @@ app.controller( "Search", function( $scope ) {
 		
 	}
 	
-	$scope.remove = function( url ) {
+	// # on click X remove
+	$scope.remove = function( url, index ) {
 		
 		console.log( "clic remove" );
 		chrome.extension.sendRequest({ fn: "remove", params :{ url: url } }, function( response ) {
 			console.log( "remove" );
-			console.log( response );
+			console.log( response.status );
+			if( response.status ) {
+				
+				$scope.$apply(function() {
+					$scope.lists.splice( index, 1 );
+				});
+			
+			}
 		});
 			
 	}

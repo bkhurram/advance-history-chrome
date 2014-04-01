@@ -47,11 +47,11 @@
 				
 				<div class="clearfix list-history">
 					<table class="table table-striped ">
-						<tr ng-repeat="list in lists" data-id="list.id">
+						<tr ng-repeat="(index,list) in lists" data-id="list.id">
 							<td>{{list.lastVisitTime | date:'yyyy-MM-dd HH:mm:ss Z' }}</td>
 							<td><img src="chrome://favicon/https://www.google.it/"></td>
 							<td><a href="{{list.url}}">{{list.title}}</a> {{list.url}}</td>
-							<td><div class="remove" ng-click="remove(list.url)">X</div></td>
+							<td><div class="remove" ng-click="remove(list.url, index)">X</div></td>
 						</tr>
 					</table>
 				</div>

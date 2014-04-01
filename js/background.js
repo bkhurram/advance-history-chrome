@@ -33,12 +33,15 @@ chrome.extension.onRequest.addListener( function( request, sender, sendResponse 
 		
 		case "remove":
 			console.log( "remove out" );
-			var obj = { url: request.url };
+			var obj = { url: request.params.url };
+			console.log( obj );
 			
-			chrome.history.deleteUrl( obj, function( results) {
-				console.log( "remove" );
-				console.log( results );
-				//sendResponse( results );
+			chrome.history.deleteUrl( obj, function() {
+				
+				var response = {};
+				response.status = true;
+				
+				sendResponse( response );
 			});
 			
 		break;
