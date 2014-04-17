@@ -3,6 +3,28 @@ height: 450px;
 overflow: auto;
 }
 
+.datetxt{
+	width: 155px;
+}
+
+.favicon div{
+	width: 16px;
+	height: 16px;;
+}
+
+.link{
+	display: block;
+	max-width: 400px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	float: left;
+}
+
+.host{
+	float: left;
+}
+
 .remove{
 	cursor: pointer;
 }

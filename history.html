@@ -48,9 +48,11 @@
 				<div class="clearfix list-history">
 					<table class="table table-striped ">
 						<tr ng-repeat="(index,list) in lists" data-id="list.id">
-							<td>{{list.lastVisitTime | date:'yyyy-MM-dd HH:mm:ss Z' }}</td>
-							<td><img src="chrome://favicon/https://www.google.it/"></td>
-							<td><a href="{{list.url}}">{{list.title}}</a> {{list.url}}</td>
+							<td class="datetxt">{{list.lastVisitTime | date:'yyyy-MM-dd HH:mm' }}</td>
+							<td class="favicon">
+								<div style="background-image: -webkit-image-set(url(chrome://favicon/size/16@1x/{{list.url}}) 1x);"></div>
+							</td>
+							<td><div class="link"><a target="_blank" href="{{list.url}}">{{list.title}}</a></div><span class="host">&nbsp;{{getHost(list.url)}}</span></td>
 							<td><div class="remove" ng-click="remove(list.url, index)">X</div></td>
 						</tr>
 					</table>
@@ -64,6 +66,7 @@
 	<script type="text/javascript" src="components/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="components/angular/angular.min.js"></script>
 	<script type="text/javascript" src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
 	<script type="text/javascript" src="js/history.js"></script>
 </body>
 </html>

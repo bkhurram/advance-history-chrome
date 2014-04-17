@@ -28,13 +28,16 @@
 		"scripts": [ "components/jquery/jquery.min.js", "components/angular/angular.min.js", "js/background.js" ]
 	},
 	
+	
 	"options_page": "options.html",
 	
 	"content_scripts": [],
 	
 	"web_accessible_resources": [
-		"components/jquery/jquery.min.map", "components/angular/angular.min.js.map"
+		"components/jquery/jquery.min.map", "components/angular/angular.min.js.map", "history.html","chrome://favicon/*"
 	],
+	
+	"content_security_policy": "default-src 'self'; connect-src *; style-src * data: chrome-extension-resource: 'unsafe-inline'; img-src * data: chrome-extension-resource:; frame-src 'self' data: chrome-extension-resource: *; font-src * data: chrome-extension-resource: *; media-src *",
 	
 	"update_url" : "http://localhost/chrome/update.xml"
 }

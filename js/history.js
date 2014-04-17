@@ -3,6 +3,11 @@ console.log( "start" );
 BG = chrome.extension.getBackgroundPage();
 
 var app = angular.module( "history", [ "ui.bootstrap" ] );
+app.config( [ '$compileProvider', 
+	function( $compileProvider ) {
+		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
+	}
+]);
 app.controller( "Search", function( $scope ) {
 	
 	'use strict';
@@ -59,7 +64,12 @@ app.controller( "Search", function( $scope ) {
 			
 	}
 	
-	
+	$scope.getHost = function( url ) {
+		
+		var host = url.match(/(http|https)+(:\/\/)+(\S[^/\s]+)/g );
+		
+		return isBlank( host ) ? url : host.toString();
+	}
 	
 });
 
