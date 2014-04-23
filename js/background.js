@@ -19,14 +19,15 @@ chrome.extension.onRequest.addListener( function( request, sender, sendResponse 
 				text: request.params.keyword,
 				startTime: request.params.startTime,
 				endTime: request.params.endTime,
-				maxResults: 50
-			}
+				maxResults: request.params.pageEnd
+			};
 			console.log( objSearch );
 			chrome.history.search( objSearch, function( results) {
-				 
+				
+                                var rs = results.splice( request.params.pageStart, request.params.pageEnd);
 				console.log( results );
 				// send data to popup
-				sendResponse( results );
+				sendResponse( rs );
 				
 			});
 		break;
@@ -49,7 +50,7 @@ chrome.extension.onRequest.addListener( function( request, sender, sendResponse 
 });
 
 var init = function(){
-	var bgPage = chrome.extension.getBackgroundPage()
+	var bgPage = chrome.extension.getBackgroundPage();
 	bgPage.console.log( "dom ready" );
 };
 

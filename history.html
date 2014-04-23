@@ -41,12 +41,12 @@
 						<input class="form-control" type="text" name="search" placeholder="keyword" ng-model="keyword">
 					</div>
 					<div class="col-xs-2">
-						<button class="btn btn-primary btn-block" ng-click="searchkeyword()">Search</button>
+						<button class="btn btn-primary btn-block" ng-click="search()">Search</button>
 					</div>
 				</form>
 				
-				<div class="clearfix list-history">
-					<table class="table table-striped ">
+				<div class="clearfix list-history" when-scrolled="loadMore()">
+					<table class="table table-striped">
 						<tr ng-repeat="(index,list) in lists" data-id="list.id">
 							<td class="datetxt">{{list.lastVisitTime | date:'yyyy-MM-dd HH:mm' }}</td>
 							<td class="favicon">
@@ -59,7 +59,7 @@
 				</div>
 			</div>
 		</div>
-	
+            
 	</div>
 	
 	<!-- LOAD SCRIPT -->

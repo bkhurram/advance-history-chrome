@@ -12,6 +12,7 @@
     "angular": "",
     "bootstrap": "",
     "angular-ui-bootstrap": "",
-    "angular-bootstrap": "~0.10.0"
+    "angular-bootstrap": "~0.10.0",
+    "jquery-waypoints": "~2.0.4"
   }
 }

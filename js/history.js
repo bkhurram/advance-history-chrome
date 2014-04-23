@@ -8,6 +8,19 @@ app.config( [ '$compileProvider',
 		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
 	}
 ]);
+
+app.directive( 'whenScrolled', function() {
+    return function(scope, elm, attr) {
+        var raw = elm[0];
+         
+        elm.bind( 'scroll', function() {
+            if ( raw.scrollTop + raw.offsetHeight >= raw.scrollHeight ) {
+                scope.$apply( attr.whenScrolled );
+            }
+        });
+    };
+});
+
 app.controller( "Search", function( $scope ) {
 	
 	'use strict';
@@ -22,29 +35,79 @@ app.controller( "Search", function( $scope ) {
 	$scope.today = today;
 	$scope.dtFrom = new Date( today.getFullYear(), today.getMonth()-1, today.getDate() );
 	$scope.dtTo = new Date();
-	
-	chrome.extension.sendRequest({ fn: "getHistory", params : { keyword: $scope.keyword } }, function( response ) {
+        
+        $scope.items = 50;
+        $scope.page_number = 1;
+        
+        $scope.page_start   = $scope.items * ($scope.page_number-1);
+        $scope.page_end     = $scope.items * $scope.page_number;
+        
+        // # on click search
+	$scope.loadMore = function() {
 		
-		$scope.$apply(function(){
-			$scope.lists = response;
-		});
+                $scope.page_start   = $scope.items * ($scope.page_number-1);
+                $scope.page_end     = $scope.items * $scope.page_number;
 		
-	});
-	
-	// # on click search
-	$scope.searchkeyword = function() {
-		console.log( $scope.dtFrom );
-		console.log( $scope.dtTo );
-		
-		chrome.extension.sendRequest({ fn: "getHistory", params : { keyword: $scope.keyword, startTime: $scope.dtFrom.getTime(), endTime: $scope.dtTo.getTime() } }, function( response ) {
+                console.log( $scope.page_start );
+                console.log( $scope.page_end);
+                
+                var params ={ 
+                                keyword: $scope.keyword,
+                                startTime: $scope.dtFrom.getTime(), 
+                                endTime: $scope.dtTo.getTime(),
+                                pageStart: $scope.items * ($scope.page_number-1),
+                                pageEnd: $scope.items * $scope.page_number,
+                                items: $scope.items
+                            };
+                
+		chrome.extension.sendRequest({ fn: "getHistory", params : params }, function( response ) {
 			console.log( response );
+                        
 			$scope.$apply(function(){
-				$scope.lists = response;
-			});
-		
+                            for( var i = 0; i < response.length; i++){
+                                $scope.lists.push( response[ i ] );
+                            }
+                        });
+                        
+                        // # go to next page
+                        $scope.page_number++;
 		});
 		
-	}
+	};
+        
+        $scope.search = function() {
+            //$scope.lists = [];
+            //$scope.loadMore();
+            $scope.page_start   = $scope.items * ($scope.page_number-1);
+            $scope.page_end     = $scope.items * $scope.page_number;
+            
+            console.log( $scope.page_start );
+            console.log( $scope.page_end);
+                
+            var params ={ 
+                keyword: $scope.keyword,
+                startTime: $scope.dtFrom.getTime(), 
+                endTime: $scope.dtTo.getTime(),
+                pageStart: $scope.page_start,
+                pageEnd: $scope.page_end,
+                items: $scope.items
+            };
+                
+            chrome.extension.sendRequest({ fn: "getHistory", params : params }, function( response ) {
+               
+                //console.log( response );
+                    
+                $scope.$apply(function(){
+                    $scope.lists = response;
+
+                });
+
+                // # go to next page
+                $scope.page_number++;
+            });
+        };
+        
+        $scope.search();
 	
 	// # on click X remove
 	$scope.remove = function( url, index ) {
@@ -62,14 +125,14 @@ app.controller( "Search", function( $scope ) {
 			}
 		});
 			
-	}
+	};
 	
 	$scope.getHost = function( url ) {
 		
 		var host = url.match(/(http|https)+(:\/\/)+(\S[^/\s]+)/g );
 		
 		return isBlank( host ) ? url : host.toString();
-	}
+	};
 	
 });
 
